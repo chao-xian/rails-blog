@@ -1,6 +1,7 @@
 class ArticlesController < ApplicationController
 
   def new
+    @article = Article.new
   end
 
   def index
@@ -11,9 +12,12 @@ class ArticlesController < ApplicationController
     # render plain: params[:article].inspect
     @article = Article.new(article_params)
 
-    @article.save
+    if @article.save
+      redirect_to @article
+    else
+      render 'new'
+    end
 
-    redirect_to @article
   end
 
   def show
